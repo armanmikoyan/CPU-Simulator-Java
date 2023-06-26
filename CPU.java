@@ -1,6 +1,6 @@
 public class CPU {
     // CURRENT INSTRUCTION POINTER REGISTER
-    public byte INSTRUCTION_POINTER;
+    public int INSTRUCTION_POINTER;
 
     // 4 BYTE RAM
     public byte[] RAM = new byte[32];
