@@ -27,7 +27,6 @@ public class CPU {
     // show each byte of ram 
     public void dump_memory(byte i) {
         for (; i < RAM.length; i++) {
-            RAM[i] = i;
             System.out.println("0x" + i + ": " + RAM[i]);
         }
     }
@@ -109,7 +108,7 @@ public class CPU {
             return false;
         }
     }
-    public int extractNumber(String str) {
+    public int toNum(String str) {
         if (str.startsWith("[") && str.endsWith("]")) {
             try {
                 String numberString = str.substring(1, str.length() - 1);
@@ -138,7 +137,7 @@ public class CPU {
                     da = Byte.parseByte(reg_destination);
                 }
             } else if (checkStringFormat(reg_source)) { // check if source starts -> [  and ends -> ]
-                RAM[extractNumber(reg_source)] = Byte.parseByte(reg_destination); // case ->  mov mem,literal
+                RAM[toNum(reg_source)] = Byte.parseByte(reg_destination); // case ->  mov mem,literal
             }
         }
     }

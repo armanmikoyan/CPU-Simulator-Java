@@ -10,7 +10,7 @@ public class Execution_program {
                     String reg_source = file[i+1];
                     String reg_destination = file[i+3];    
                    if(file[i].equals("mov")){
-                        cpu.mov(reg_source, reg_destination);          
+                        cpu.mov(reg_source, reg_destination);     
                    } 
                    cpu.INSTRUCTION_POINTER++;
                 }

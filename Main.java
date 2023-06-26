@@ -5,7 +5,9 @@ public class Main {
         Execution_program execution_program = new Execution_program();
         CPU cpu = load.get_cpu();
         execution_program.execution(cpu,load.get_code_count());
-        System.out.println( cpu.RAM[9]);
+        System.out.println(cpu.RAM[10]);
+        System.out.println(cpu.RAM[9]);
+        cpu.dump_memory((byte)0);
 
     }
 }
