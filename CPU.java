@@ -99,39 +99,49 @@ public class CPU {
     }
 
     // 'MOV ASSEMBLY INSTRUCTION'
-    public void mov(String reg_source, String reg_destination, byte ram_addr, byte data) {
-        if (reg_destination.isEmpty() && ram_addr == 0) { // case when data transfer is  ->  mov reg,literal
-            if (reg_source.equals("ayb")) {
-                ayb = data;
-            } else if (reg_source.equals("ben")) {
-                ben = data;
-            } else if (reg_source.equals("gim")) {
-                gim = data;
-            } else if (reg_source.equals("da")) {
-                da = data;
-            } else if (reg_source.equals("ech") || reg_source.equals("za")) {
-                System.out.print("You can't use '" + reg_source + "' register");
-            } else {
-                System.out.print(reg_source + " doesn't exist");
+    public boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");
+    }
+    public boolean checkStringFormat(String str) {
+        if (str.startsWith("[") && str.endsWith("]")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public int extractNumber(String str) {
+        if (str.startsWith("[") && str.endsWith("]")) {
+            try {
+                String numberString = str.substring(1, str.length() - 1);
+                return Integer.parseInt(numberString);
+            } catch (NumberFormatException e) {
+                // Handle the case where the number cannot be parsed
+                // Return a default value or throw an exception as needed
             }
-        } else if (!(reg_source.isEmpty()) && !(reg_destination.isEmpty()) && ram_addr == 0 && data == 0) { // case when data transfer is  ->  mov reg,reg
-            reg_source = reg_destination;
-        } else if (ram_addr != 0 && reg_destination.isEmpty() && reg_destination.isEmpty()) { // case when data transfer is  ->  mov ram ,literal
-            RAM[ram_addr] = data;
-        } else if (reg_destination.isEmpty() && data == 0) { // case when data transfer is  ->  mov reg,ram
-            if (reg_source.equals("ayb")) {
-                ayb = RAM[ram_addr];;
-            } else if (reg_source.equals("ben")) {
-                ben = RAM[ram_addr];;
-            } else if (reg_source.equals("gim")) {
-                gim = RAM[ram_addr];;
-            } else if (reg_source.equals("da")) {
-                da = RAM[ram_addr];;
-            } else if (reg_source.equals("ech") || reg_source.equals("za")) {
-                System.out.print("You can't use '" + reg_source + "' register");
-            } else {
-                System.out.print(reg_source + " doesn't exist");
+        }
+
+        // Return a default value (e.g., -1) if the string format is invalid
+        return -1;
+    }
+
+
+    public void mov(String reg_source, String reg_destination) {
+        if (isNumeric(reg_destination)) { // destination literal number
+            if (!checkStringFormat(reg_source)) { // case ->  mov reg, literal
+                if (reg_source.equals("ayb")) {
+                    ayb = Byte.parseByte(reg_destination);
+                } else if (reg_source.equals("ben")) {
+                    ben = Byte.parseByte(reg_destination);
+                } else if (reg_source.equals("gim")) {
+                    gim = Byte.parseByte(reg_destination);
+                } else if (reg_source.equals("da")) {
+                    da = Byte.parseByte(reg_destination);
+                }
+            } else if (checkStringFormat(reg_source)) { // check if source starts -> [  and ends -> ]
+                RAM[extractNumber(reg_source)] = Byte.parseByte(reg_destination); // case ->  mov mem,literal
             }
         }
     }
+
+
 }

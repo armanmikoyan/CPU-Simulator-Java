@@ -1,6 +1,9 @@
-mov ayb , 5
-mov ben , 10
+mov [9] , 10 
+mov ben , [5]
+mov gim , 111
+mov da , 77
 add 1 , 3
 sub a ,c
 add 2 , 1 ;
 add 3 , 3 ;
+mov ben , 23
