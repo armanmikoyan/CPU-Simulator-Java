@@ -1,9 +1,9 @@
-mov ayb , 99
-mov ben , 77
-mov ayb , ben
-mov [9] , ben
-mov ayb , [9]
-mov [19] , 10
-mov ayb , ben
+
+
+mov ayb , 5
+mov da , 12
+mov ben , 10
+mov gim , 2
+mul ayb , gim
 
 

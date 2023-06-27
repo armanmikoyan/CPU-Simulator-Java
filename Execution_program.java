@@ -4,20 +4,28 @@ public class Execution_program {
         String filePath = "./assembly.txt";
         String[] file = fileReader.readFile(filePath);
         Instruction_set isa = new Instruction_set();
-  
-            for(int i = 0; i < file.length; ++i){
-                if(cpu.RAM[cpu.INSTRUCTION_POINTER] == isa.getOpcode(file[i])){
-                    String reg_source = file[i+1];
-                    String reg_destination = file[i+3];    
-                   if(file[i].equals("mov")){
-                        cpu.mov(reg_source, reg_destination);     
-                   } 
-                   cpu.INSTRUCTION_POINTER++;
-                }
 
+        for (int i = 0; i < file.length; ++i) {
+            if (cpu.RAM[cpu.INSTRUCTION_POINTER] == isa.getOpcode(file[i])) {
+                String reg_source = file[i + 1];
+                String reg_destination = file[i + 3];
+                if (file[i].equals("mov")) {
+                    cpu.mov(reg_source, reg_destination);
+                } else if (file[i].equals("add")) {
+                    cpu.add(reg_source, reg_destination);
+                } else if (file[i].equals("sub")) {
+                    cpu.sub(reg_source, reg_destination);
+                }
+                else if (file[i].equals("div")) {
+                    cpu.div(reg_source, reg_destination);
+                }
+                else if (file[i].equals("mul")) {
+                    cpu.mul(reg_source, reg_destination);
+                }
+                cpu.INSTRUCTION_POINTER++;
             }
 
-    
+        }
+
     }
 }
-
