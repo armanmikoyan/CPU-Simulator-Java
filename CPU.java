@@ -122,7 +122,7 @@ public class CPU {
                 } else if (source.equals("ben")) {
                     ben = (byte) (ben - Byte.parseByte(destination));
                 } else if (source.equals("gim")) {
-                    gim = (byte) (gim  - Byte.parseByte(destination));
+                    gim = (byte) (gim - Byte.parseByte(destination));
                 } else if (source.equals("da")) {
                     da = (byte) (da - Byte.parseByte(destination));
                 }
@@ -183,7 +183,7 @@ public class CPU {
                 } else if (source.equals("ben")) {
                     ben = (byte) (ben / Byte.parseByte(destination));
                 } else if (source.equals("gim")) {
-                    gim = (byte) (gim  / Byte.parseByte(destination));
+                    gim = (byte) (gim / Byte.parseByte(destination));
                 } else if (source.equals("da")) {
                     da = (byte) (da / Byte.parseByte(destination));
                 }
@@ -242,9 +242,9 @@ public class CPU {
                 if (source.equals("ayb")) {
                     ayb = (byte) (ayb * Byte.parseByte(destination));
                 } else if (source.equals("ben")) {
-                    ben = (byte) (ben  *   Byte.parseByte(destination));
+                    ben = (byte) (ben * Byte.parseByte(destination));
                 } else if (source.equals("gim")) {
-                    gim = (byte) (gim  * Byte.parseByte(destination));
+                    gim = (byte) (gim * Byte.parseByte(destination));
                 } else if (source.equals("da")) {
                     da = (byte) (da * Byte.parseByte(destination));
                 }
@@ -297,18 +297,15 @@ public class CPU {
     }
 
     // 'NOT ASSEMBLY INSTRUCTION'
-    public void not(String source) {   //   not reg       not works only with regiser
-        if(source.equals("ayb")){    
-            ayb = (byte) (~ayb+1);
-        }
-        else if(source.equals("ben")){
-            ben = (byte) (~ben+1);
-        }
-        else if(source.equals("gim")){
-            gim = (byte) (~gim+1);
-        }
-        else if(source.equals("da")){
-            da = (byte) (~da+1);
+    public void not(String source) { // not reg not works only with regiser
+        if (source.equals("ayb")) {
+            ayb = (byte) (~ayb + 1);
+        } else if (source.equals("ben")) {
+            ben = (byte) (~ben + 1);
+        } else if (source.equals("gim")) {
+            gim = (byte) (~gim + 1);
+        } else if (source.equals("da")) {
+            da = (byte) (~da + 1);
         }
     }
 
@@ -321,7 +318,7 @@ public class CPU {
                 } else if (source.equals("ben")) {
                     ben = (byte) (ben | Byte.parseByte(destination));
                 } else if (source.equals("gim")) {
-                    gim = (byte) (gim  | Byte.parseByte(destination));
+                    gim = (byte) (gim | Byte.parseByte(destination));
                 } else if (source.equals("da")) {
                     da = (byte) (da | Byte.parseByte(destination));
                 }
@@ -382,7 +379,7 @@ public class CPU {
                 } else if (source.equals("ben")) {
                     ben = (byte) (ben & Byte.parseByte(destination));
                 } else if (source.equals("gim")) {
-                    gim = (byte) (gim  & Byte.parseByte(destination));
+                    gim = (byte) (gim & Byte.parseByte(destination));
                 } else if (source.equals("da")) {
                     da = (byte) (da & Byte.parseByte(destination));
                 }
@@ -435,11 +432,70 @@ public class CPU {
     }
 
     // 'CMP ASSEMBLY INSTRUCTION'
-    public void cmp(byte a, byte b) {
-        int tmp = a - b;
-        if (tmp < 0) {
+    public void cmp(String source, String destination) {
+        int result = 0;
+        if (!checkStringFormat(destination)) { // cmp reg , reg
+            if (source.equals("ayb")) {
+                if (destination.equals("ben")) {
+                    result = ayb - ben;
+                } else if (destination.equals("gim")) {
+                    result = ayb - gim;
+                } else if (destination.equals("da")) {
+                    result = ayb - da;
+                }
+            } else if (source.equals("ben")) {
+                if (destination.equals("ayb")) {
+                    result = ben - ayb;
+                } else if (destination.equals("gim")) {
+                    ben &= gim;
+                } else if (destination.equals("da")) {
+                    result = ben - da;
+                }
+            } else if (source.equals("gim")) {
+                if (destination.equals("ayb")) {
+                    result = gim - ayb;
+                } else if (destination.equals("ben")) {
+                    result = gim - ben;
+                } else if (destination.equals("da")) {
+                    result = gim - da;
+                }
+            } else if (source.equals("da")) {
+                if (destination.equals("ayb")) {
+                    result = da - ayb;
+                } else if (destination.equals("ben")) {
+                    result = da - ben;
+                } else if (destination.equals("gim")) {
+                    result = da - gim;
+                }
+            }
+        } else if (checkStringFormat(destination)) { // cmp reg , mem
+            if (source.equals("ayb")) {
+                result = (byte) (ayb - RAM[toNum(destination)]);
+            } else if (source.equals("ben")) {
+                result = (byte) (ben - RAM[toNum(destination)]);
+            } else if (source.equals("gim")) {
+                result = (byte) (gim - RAM[toNum(destination)]);
+            } else if (source.equals("ben")) {
+                result = (byte) (ben - RAM[toNum(destination)]);
+            }
+        }
+        if (isNumeric(destination)) { // cmp reg , literal
+            if (!checkStringFormat(destination)) {
+                if (source.equals("ayb")) {
+                    result = (byte) (ayb - Byte.parseByte(destination));
+                } else if (source.equals("ben")) {
+                    result = (byte) (ben - Byte.parseByte(destination));
+                } else if (source.equals("gim")) {
+                    result = (byte) (gim - Byte.parseByte(destination));
+                } else if (source.equals("da")) {
+                    result = (byte) (da - Byte.parseByte(destination));
+                }
+            }
+        }
+        if (result < 0) {
             ech = -1;
-        } else if (tmp > 0) {
+        } else if (result > 0) {
+
             ech = 1;
         } else {
             ech = 0;

@@ -19,28 +19,27 @@ public class Execution_program {
                     String reg_source = file[i + 1];
                     String reg_destination = file[i + 3];
                     cpu.sub(reg_source, reg_destination);
-                }
-                else if (file[i].equals("div")) {
+                } else if (file[i].equals("div")) {
                     String reg_source = file[i + 1];
                     String reg_destination = file[i + 3];
                     cpu.div(reg_source, reg_destination);
-                }
-                else if (file[i].equals("mul")) {
+                } else if (file[i].equals("mul")) {
                     String reg_source = file[i + 1];
                     String reg_destination = file[i + 3];
                     cpu.mul(reg_source, reg_destination);
-                }
-                else if (file[i].equals("or")) {
+                } else if (file[i].equals("or")) {
                     String reg_source = file[i + 1];
                     String reg_destination = file[i + 3];
                     cpu.or(reg_source, reg_destination);
-                }
-                else if (file[i].equals("and")) {
+                } else if (file[i].equals("and")) {
                     String reg_source = file[i + 1];
                     String reg_destination = file[i + 3];
                     cpu.and(reg_source, reg_destination);
-                }
-                else if(file[i].equals("not")){
+                } else if (file[i].equals("cmp")) {
+                    String reg_source = file[i + 1];
+                    String reg_destination = file[i + 3];
+                    cpu.cmp(reg_source, reg_destination);
+                } else if (file[i].equals("not")) {
                     String reg_source = file[i + 1];
                     cpu.not(reg_source);
                 }

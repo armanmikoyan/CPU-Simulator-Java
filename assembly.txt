@@ -1,7 +1,6 @@
 mov ayb , 7
-mov ben , 7
-mov gim , 15
-and ben , ayb
-mov [29] , ben
+mov ben , 9
+
+cmp ben , 5
 
 
