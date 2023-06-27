@@ -297,18 +297,141 @@ public class CPU {
     }
 
     // 'NOT ASSEMBLY INSTRUCTION'
-    public byte not(byte a) {
-        return (byte) ((~a) + 1);
+    public void not(String source) {   //   not reg       not works only with regiser
+        if(source.equals("ayb")){    
+            ayb = (byte) (~ayb+1);
+        }
+        else if(source.equals("ben")){
+            ben = (byte) (~ben+1);
+        }
+        else if(source.equals("gim")){
+            gim = (byte) (~gim+1);
+        }
+        else if(source.equals("da")){
+            da = (byte) (~da+1);
+        }
     }
 
     // 'OR ASSEMBLY INSTRUCTION'
-    public byte or(byte a, byte b) {
-        return (byte) (a | b);
+    public void or(String source, String destination) {
+        if (isNumeric(destination)) { // or reg , literal
+            if (!checkStringFormat(destination)) {
+                if (source.equals("ayb")) {
+                    ayb = (byte) (ayb | Byte.parseByte(destination));
+                } else if (source.equals("ben")) {
+                    ben = (byte) (ben | Byte.parseByte(destination));
+                } else if (source.equals("gim")) {
+                    gim = (byte) (gim  | Byte.parseByte(destination));
+                } else if (source.equals("da")) {
+                    da = (byte) (da | Byte.parseByte(destination));
+                }
+            }
+        } else if (checkStringFormat(destination)) { // or reg , mem
+            if (source.equals("ayb")) {
+                ayb = (byte) (ayb | RAM[toNum(destination)]);
+            } else if (source.equals("ben")) {
+                ben = (byte) (ben | RAM[toNum(destination)]);
+            } else if (source.equals("gim")) {
+                gim = (byte) (gim | RAM[toNum(destination)]);
+            } else if (source.equals("ben")) {
+                ben = (byte) (ben | RAM[toNum(destination)]);
+            }
+        } else if (!checkStringFormat(destination)) { // or reg , reg
+            if (source.equals("ayb")) {
+                if (destination.equals("ben")) {
+                    ayb |= ben;
+                } else if (destination.equals("gim")) {
+                    ayb |= gim;
+                } else if (destination.equals("da")) {
+                    ayb |= da;
+                }
+            } else if (source.equals("ben")) {
+                if (destination.equals("ayb")) {
+                    ben |= ayb;
+                } else if (destination.equals("gim")) {
+                    ben |= gim;
+                } else if (destination.equals("da")) {
+                    ben |= da;
+                }
+            } else if (source.equals("gim")) {
+                if (destination.equals("ayb")) {
+                    gim |= ayb;
+                } else if (destination.equals("ben")) {
+                    gim |= ben;
+                } else if (destination.equals("da")) {
+                    gim |= da;
+                }
+            } else if (source.equals("da")) {
+                if (destination.equals("ayb")) {
+                    da |= ayb;
+                } else if (destination.equals("ben")) {
+                    da |= ben;
+                } else if (destination.equals("gim")) {
+                    da |= gim;
+                }
+            }
+        }
     }
 
     // 'AND ASSEMBLY INSTRUCTION'
-    public byte and(byte a, byte b) {
-        return (byte) (a & b);
+    public void and(String source, String destination) {
+        if (isNumeric(destination)) { // and reg , literal
+            if (!checkStringFormat(destination)) {
+                if (source.equals("ayb")) {
+                    ayb = (byte) (ayb & Byte.parseByte(destination));
+                } else if (source.equals("ben")) {
+                    ben = (byte) (ben & Byte.parseByte(destination));
+                } else if (source.equals("gim")) {
+                    gim = (byte) (gim  & Byte.parseByte(destination));
+                } else if (source.equals("da")) {
+                    da = (byte) (da & Byte.parseByte(destination));
+                }
+            }
+        } else if (checkStringFormat(destination)) { // and reg , mem
+            if (source.equals("ayb")) {
+                ayb = (byte) (ayb & RAM[toNum(destination)]);
+            } else if (source.equals("ben")) {
+                ben = (byte) (ben & RAM[toNum(destination)]);
+            } else if (source.equals("gim")) {
+                gim = (byte) (gim & RAM[toNum(destination)]);
+            } else if (source.equals("ben")) {
+                ben = (byte) (ben & RAM[toNum(destination)]);
+            }
+        } else if (!checkStringFormat(destination)) { // and reg , reg
+            if (source.equals("ayb")) {
+                if (destination.equals("ben")) {
+                    ayb &= ben;
+                } else if (destination.equals("gim")) {
+                    ayb &= gim;
+                } else if (destination.equals("da")) {
+                    ayb &= da;
+                }
+            } else if (source.equals("ben")) {
+                if (destination.equals("ayb")) {
+                    ben &= ayb;
+                } else if (destination.equals("gim")) {
+                    ben &= gim;
+                } else if (destination.equals("da")) {
+                    ben &= da;
+                }
+            } else if (source.equals("gim")) {
+                if (destination.equals("ayb")) {
+                    gim &= ayb;
+                } else if (destination.equals("ben")) {
+                    gim &= ben;
+                } else if (destination.equals("da")) {
+                    gim &= da;
+                }
+            } else if (source.equals("da")) {
+                if (destination.equals("ayb")) {
+                    da &= ayb;
+                } else if (destination.equals("ben")) {
+                    da &= ben;
+                } else if (destination.equals("gim")) {
+                    da &= gim;
+                }
+            }
+        }
     }
 
     // 'CMP ASSEMBLY INSTRUCTION'
