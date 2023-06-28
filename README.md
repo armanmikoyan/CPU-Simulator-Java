@@ -13,4 +13,5 @@ Picsart_academy
 
 # compilation and execution
 
-
+## 1 step -> javac CPU.java Execution_program.java FileReader.java Instruction_set.java Load_to_Ram.java Main.java
+## 2 step -> java Main 
