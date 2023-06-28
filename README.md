@@ -15,3 +15,6 @@ Picsart_academy
 
 ## 1 step -> javac CPU.java Execution_program.java FileReader.java Instruction_set.java Load_to_Ram.java Main.java
 ## 2 step -> java Main 
+
+
+## method dump_memory shows each bytes of RAM 
