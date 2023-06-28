@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class FileReader {
-    public String[] readFile(String filePath) {
+    public  String[] readFile(String filePath) {
         List < String > wordsList = new ArrayList < > ();
         try {
             FileInputStream fileInputStream = new FileInputStream(new File(filePath));
