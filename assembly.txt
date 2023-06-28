@@ -1,6 +1,19 @@
-mov ayb , 7
-mov ben , 9
+mov ben , 0
+mov ayb , 10
+mov da , 19
+add ben , 1
+cmp ben , 9
+jl  -3
 
-cmp ben , 5
+
+
+
+
+
+
+
+
+
+
 
 

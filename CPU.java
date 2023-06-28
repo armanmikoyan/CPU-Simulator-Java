@@ -503,8 +503,9 @@ public class CPU {
     }
 
     // JUMP WITHOUT CONDITION
-    public void jmp(byte addr) {
-        updateInstructionPointer(addr);
+    public void jmp(String source , int count) {
+        updateInstructionPointer((byte)count);
+
     }
 
     // JUMP IF GREATER
